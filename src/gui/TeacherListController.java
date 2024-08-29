@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,9 +15,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.entities.Teacher;
+import model.services.TeacherService;
 
 public class TeacherListController implements Initializable {
 
+	private  TeacherService service; 
+	
 	@FXML
 	private TableView<Teacher> tableViewTeacher;
 	
@@ -36,9 +42,15 @@ public class TeacherListController implements Initializable {
 	@FXML
 	private Button btNew;
 	
+	private ObservableList<Teacher> obsList;
+	
 	@FXML
 	public void onBtNewAction() {
 		System.out.println("onBtNewAction");
+	}
+	
+	public void setTeacherService(TeacherService service) {
+		this.service = service;
 	}
 	
 	@Override
@@ -46,6 +58,13 @@ public class TeacherListController implements Initializable {
 		initializeNodes();
 	}
 	
+	public void updateTableView() {
+		if (service == null)
+			throw new IllegalStateException("Service was null!");
+		List<Teacher> list = service.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		tableViewTeacher.setItems(obsList);
+	}
 	
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));

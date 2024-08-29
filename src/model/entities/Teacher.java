@@ -17,8 +17,8 @@ public class Teacher implements Serializable{
 	public Teacher() {
 	}
 		
-	public Teacher(Integer id, String name, Date admissionDate, String cpf, String phone, Double salary) {
-		super();
+	public Teacher(Integer id, String name, String cpf, String phone, Double salary) {
+		
 		this.id = id;
 		this.name = name;		
 		this.cpf = cpf;
