@@ -82,6 +82,7 @@ public class TeacherListController implements Initializable {
 		tableColumnCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
 		tableColumnPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
 		tableColumnSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+		Utils.formatTableColumnDouble(tableColumnSalary, 2);
 		
 		Stage stage  = (Stage) Main.getMainScene().getWindow();
 		tableViewTeacher.prefHeightProperty().bind(stage.heightProperty());
