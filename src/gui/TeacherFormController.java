@@ -9,9 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.entities.Teacher;
 
 public class TeacherFormController implements Initializable {
 
+	private Teacher entity;
+	
 	@FXML
 	private TextField txtId;
 	
@@ -45,6 +48,9 @@ public class TeacherFormController implements Initializable {
 	@FXML
 	private Button btSave;
 	
+	public void setTeacher (Teacher entity) {
+		this.entity = entity;
+	}
 	@FXML
 	public void onBtCancelAction() {
 		System.out.println("onBtCancelAction");
@@ -66,5 +72,13 @@ public class TeacherFormController implements Initializable {
 		Constraints.setTextFieldMaxLength(txtCpf, 11);
 		Constraints.setTextFieldMaxLength(txtPhone, 15);
 		Constraints.setTextFieldDouble(txtSalary);
+	}
+	
+	public void updateFormeData() {
+		if(entity == null) {
+			throw new IllegalStateException("Entity was null!");
+		}
+		txtId.setText(String.valueOf(entity.getId()));
+		txtName.setText(entity.getName());		
 	}
 }

@@ -55,8 +55,9 @@ public class TeacherListController implements Initializable {
 	
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
-		Stage parentStage = Utils.currentStage(event);	
-		createDialogForme("/gui/TeacherForm.fxml", parentStage);		
+		Stage parentStage = Utils.currentStage(event);
+		Teacher obj = new Teacher();
+		createDialogForme(obj, "/gui/TeacherForm.fxml", parentStage);		
 	}
 	
 	public void setTeacherService(TeacherService service) {
@@ -88,10 +89,15 @@ public class TeacherListController implements Initializable {
 		tableViewTeacher.prefHeightProperty().bind(stage.heightProperty());
 	}
 	
-	private void createDialogForme(String absoluteName, Stage parentStage) { 
+	private void createDialogForme(Teacher obj, String absoluteName, Stage parentStage) { 
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			TeacherFormController controller = loader.getController();
+			controller.setTeacher(obj);
+			controller.updateFormeData();
+			
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Enter teacher data");
